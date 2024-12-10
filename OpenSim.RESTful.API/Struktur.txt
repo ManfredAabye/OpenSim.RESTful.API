@@ -1,0 +1,18 @@
+OpenSim.RESTful.API/
+├── OpenSim.RESTful.API.Controllers/
+│   ├── OpenSim.RESTful.API.GeneralController.cs        # General Server Commands (Allgemein)
+│   ├── OpenSim.RESTful.API.RobustServiceController.cs  # ROBUST-bezogene Befehle
+│   ├── OpenSim.RESTful.API.SimulatorController.cs      # Simulator Commands
+├── OpenSim.RESTful.API.Models/
+│   ├── OpenSim.RESTful.API.User.cs                     # Benutzer-Modelle
+│   ├── OpenSim.RESTful.API.Region.cs                   # Regionen-Modelle
+│   ├── OpenSim.RESTful.API.Asset.cs                    # Asset-Modelle
+├── OpenSim.RESTful.API.Services/
+│   ├── OpenSim.RESTful.API.GeneralService.cs           # Allgemeiner Serverdienst
+│   ├── OpenSim.RESTful.API.RobustService.cs            # ROBUST-Service-Integration
+│   ├── OpenSim.RESTful.API.SimulatorService.cs         # Simulator-Service
+├── OpenSim.RESTful.API.Helpers/
+│   ├── OpenSim.RESTful.API.CommandParser.cs            # Parsen und Formatieren von Befehlen
+│   ├── OpenSim.RESTful.API.ResponseParser.cs           # Ausgabe von Robust oder Simulator verarbeiten
+├── Program.cs                      # Hauptprogramm
+└── appsettings.json                # Konfiguration (z. B. Robust-Pfad, Auth)
