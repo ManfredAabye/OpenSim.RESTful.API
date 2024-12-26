@@ -1,44 +1,32 @@
-[ApiController]
-[Route("api/restful/simulator")]
-public class RESTfulAPISimulatorController : ControllerBase
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using OpenSim.RESTful.API.Services;
+
+namespace OpenSim.RESTful.API.Controllers
 {
-    private readonly IRESTfulAPISimulatorService _simulatorService;
-
-    public RESTfulAPISimulatorController(IRESTfulAPISimulatorService simulatorService)
+    [ApiController]
+    [Route("api/restful/simulator")]
+    public class SimulatorController : ControllerBase
     {
-        _simulatorService = simulatorService;
-    }
+        private readonly ISimulatorService _simulatorService;
 
-    [HttpPost("regions/{regionName}/shutdown")]
-    public async Task<IActionResult> ShutdownRegion(string regionName)
-    {
-        var result = await _simulatorService.ShutdownRegionAsync(regionName);
-        return Ok(new { result });
-    }
+        public SimulatorController(ISimulatorService simulatorService)
+        {
+            _simulatorService = simulatorService;
+        }
 
-    [HttpGet("regions")]
-    public async Task<IActionResult> GetRegions()
-    {
-        var regions = await _simulatorService.GetAllSimulatorRegionsAsync();
-        return Ok(new { regions });
-    }
-}
+        [HttpPost("regions/{regionName}/shutdown")]
+        public async Task<IActionResult> ShutdownRegion(string regionName)
+        {
+            var result = await _simulatorService.ShutdownRegionAsync(regionName);
+            return Ok(new { result });
+        }
 
-[ApiController]
-[Route("api/simulator")]
-public class SimulatorController : ControllerBase
-{
-    private readonly ISimulatorService _simulatorService;
-
-    public SimulatorController(ISimulatorService simulatorService)
-    {
-        _simulatorService = simulatorService;
-    }
-
-    [HttpPost("region/{regionName}/shutdown")]
-    public async Task<IActionResult> ShutdownRegion(string regionName)
-    {
-        var result = await _simulatorService.ShutdownRegionAsync(regionName);
-        return Ok(new { result });
+        [HttpGet("regions")]
+        public async Task<IActionResult> GetRegions()
+        {
+            var regions = await _simulatorService.GetAllSimulatorRegionsAsync();
+            return Ok(new { regions });
+        }
     }
 }
