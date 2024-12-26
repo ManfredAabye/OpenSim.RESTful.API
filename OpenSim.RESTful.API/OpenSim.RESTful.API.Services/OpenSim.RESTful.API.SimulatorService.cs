@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using OpenSim.Framework;
+
 namespace OpenSim.RESTful.API.Services
 {
     public class SimulatorService : ISimulatorService

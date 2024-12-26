@@ -1,12 +1,17 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using OpenSim.Framework;
+
 namespace OpenSim.RESTful.API.Services
 {
     public interface ISimulatorService
     {
         Task<string> ShutdownRegionAsync(string regionName);
-        Task<IEnumerable<Region>> GetAllSimulatorRegionsAsync();
+        Task<IEnumerable<RegionInfo>> GetAllSimulatorRegionsAsync();
         string SaveXml(string fileName);
         string SaveXml2(string fileName);
-        string LoadXml(string fileName, bool newUID = false, Vector3? position = null);
+        //string LoadXml(string fileName, bool newUID = false, Vector3? position = null);
         string LoadXml2(string fileName);
         string SavePrimsXml2(string primName, string fileName);
         string LoadOar(string oarPath, bool merge = false, bool skipAssets = false, string defaultUser = null, string options = null);

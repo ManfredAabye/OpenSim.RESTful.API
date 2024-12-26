@@ -1,9 +1,16 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using OpenSim.Framework;
+using OpenSim.RESTful.API.Models;
+
 namespace OpenSim.RESTful.API.Services
 {
     public interface IGeneralService
     {
         Task<string> GetServerUptimeAsync();
         Task<IEnumerable<User>> GetAllUsersAsync();
+
         string ForceUpdate();
         string ChangeRegion(string regionName);
         string SaveXml(string fileName);

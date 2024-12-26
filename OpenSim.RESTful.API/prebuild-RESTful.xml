@@ -29,12 +29,6 @@
   <Reference name="OpenSim.Services.Interfaces"/>
   <Reference name="OpenSim.Server.Base"/>
   <Reference name="OpenSim.Data"/>
-  <Reference name="Microsoft.CSharp" />
-  <Reference name="System" />
-  <Reference name="System.Core" />
-  <Reference name="System.Data" />
-  <Reference name="System.Xml" />
-  <Reference name="System.Web" />
   <Reference name="Newtonsoft.Json" />
   
   <Files>

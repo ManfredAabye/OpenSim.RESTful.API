@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+
+using OpenSim.Framework;
 using OpenSim.RESTful.API.Services;
+using OpenSim.Services.Interfaces;
 
 namespace OpenSim.RESTful.API.Controllers
 {
-    [ApiController]
-    [Route("api/restful/simulator")]
-    public class SimulatorController : ControllerBase
+    public class SimulatorController
     {
         private readonly ISimulatorService _simulatorService;
 
@@ -15,18 +15,17 @@ namespace OpenSim.RESTful.API.Controllers
             _simulatorService = simulatorService;
         }
 
-        [HttpPost("regions/{regionName}/shutdown")]
-        public async Task<IActionResult> ShutdownRegion(string regionName)
+        public async Task<string> ShutdownRegion(string regionName)
         {
             var result = await _simulatorService.ShutdownRegionAsync(regionName);
-            return Ok(new { result });
+            return result;
         }
 
-        [HttpGet("regions")]
-        public async Task<IActionResult> GetRegions()
+        public async Task<string> GetRegions()
         {
             var regions = await _simulatorService.GetAllSimulatorRegionsAsync();
-            return Ok(new { regions });
+            return regions.ToString();
         }
     }
 }
+
