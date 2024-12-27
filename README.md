@@ -2,7 +2,7 @@
 
 Eine Idee und Machbarkeitsstudie JSON Kommunikation PHP <-> OpenSim für Standalone, Jomla und Wordpress etc.
 
-Build succeeded 0 Warning(s) 0 Error(s) OpenSim.RESTful.API.dll OpenSim.RESTful.API.pdb // todo: Implementiere die Logik
+Build succeeded 0 Warning(s) 0 Error(s) OpenSim.RESTful.API.dll OpenSim.RESTful.API.pdb // 99 todo: Implementiere die Logik
 
 ## How-To: Erstellen einer allgemeinen Webschnittstelle für OpenSim und Robust
 
