@@ -25,6 +25,6 @@ namespace OpenSim.RESTful.API.Models
         /// <summary>
         /// The timestamp when the asset was created or last modified.
         /// </summary>
-        public DateTime Timestamp { get; set; }
+        public System.DateTime Timestamp { get; set; }
     }
 }

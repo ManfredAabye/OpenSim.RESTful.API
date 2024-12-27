@@ -1,12 +1,15 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using OpenSim.Framework;
+using OpenSim.RESTful.API.Models;
 using OpenSim.RESTful.API.Services;
+
+using OpenMetaverse;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OpenSim.RESTful.API.Controllers
 {
-    [ApiController]
-    [Route("api/restful/general")]
-    public class GeneralController : ControllerBase
+    public class GeneralController
     {
         private readonly IGeneralService _generalService;
 
@@ -15,235 +18,202 @@ namespace OpenSim.RESTful.API.Controllers
             _generalService = generalService;
         }
 
-        [HttpGet("uptime")]
-        public async Task<IActionResult> GetUptime()
+        public async Task<string> GetUptime()
         {
             var uptime = await _generalService.GetServerUptimeAsync();
-            return Ok(new { uptime });
+            return uptime;
         }
 
-        [HttpGet("users")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
             var users = await _generalService.GetAllUsersAsync();
-            return Ok(new { users });
+            return users;
         }
 
-        [HttpPost("force-update")]
-        public IActionResult ForceUpdate()
+        public string ForceUpdate()
         {
             var result = _generalService.ForceUpdate();
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("change-region")]
-        public IActionResult ChangeRegion(string regionName)
+        public string ChangeRegion(string regionName)
         {
             var result = _generalService.ChangeRegion(regionName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("save-xml")]
-        public IActionResult SaveXml(string fileName)
+        public string SaveXml(string fileName)
         {
             var result = _generalService.SaveXml(fileName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("save-xml2")]
-        public IActionResult SaveXml2(string fileName)
+        public string SaveXml2(string fileName)
         {
             var result = _generalService.SaveXml2(fileName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("load-xml")]
-        public IActionResult LoadXml(string fileName, bool newUID = false, Vector3? position = null)
+        public string LoadXml(string fileName, bool newUID = false, Vector3? position = null)
         {
             var result = _generalService.LoadXml(fileName, newUID, position);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("load-xml2")]
-        public IActionResult LoadXml2(string fileName)
+        public string LoadXml2(string fileName)
         {
             var result = _generalService.LoadXml2(fileName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("save-prims-xml2")]
-        public IActionResult SavePrimsXml2(string primName, string fileName)
+        public string SavePrimsXml2(string primName, string fileName)
         {
             var result = _generalService.SavePrimsXml2(primName, fileName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("load-oar")]
-        public IActionResult LoadOar(string oarPath, bool merge = false, bool skipAssets = false, string defaultUser = null, string options = null)
+        public string LoadOar(string oarPath, bool merge = false, bool skipAssets = false, string defaultUser = null, string options = null)
         {
             var result = _generalService.LoadOar(oarPath, merge, skipAssets, defaultUser, options);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("save-oar")]
-        public IActionResult SaveOar(string oarPath, string options = null)
+        public string SaveOar(string oarPath, string options = null)
         {
             var result = _generalService.SaveOar(oarPath, options);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("edit-scale")]
-        public IActionResult EditScale(string primName, float x, float y, float z)
+        public string EditScale(string primName, float x, float y, float z)
         {
             var result = _generalService.EditScale(primName, x, y, z);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("rotate-scene")]
-        public IActionResult RotateScene(float degrees, float centerX = 128, float centerY = 128)
+        public string RotateScene(float degrees, float centerX = 128, float centerY = 128)
         {
             var result = _generalService.RotateScene(degrees, centerX, centerY);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("scale-scene")]
-        public IActionResult ScaleScene(float factor)
+        public string ScaleScene(float factor)
         {
             var result = _generalService.ScaleScene(factor);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("translate-scene")]
-        public IActionResult TranslateScene(float xOffset, float yOffset, float zOffset)
+        public string TranslateScene(float xOffset, float yOffset, float zOffset)
         {
             var result = _generalService.TranslateScene(xOffset, yOffset, zOffset);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("kick-user")]
-        public IActionResult KickUser(string firstName, string lastName, bool force = false, string message = null)
+        public string KickUser(string firstName, string lastName, bool force = false, string message = null)
         {
             var result = _generalService.KickUser(firstName, lastName, force, message);
-            return Ok(result);
+            return string.Join(", ", result);
         }
 
-        [HttpGet("show-users")]
-        public IActionResult ShowUsers(bool full = false)
+        public string ShowUsers(bool full = false)
         {
             var result = _generalService.ShowUsers(full);
-            return Ok(result);
+            return string.Join(", ", result);
         }
 
-        [HttpGet("show-connections")]
-        public IActionResult ShowConnections()
+        public string ShowConnections()
         {
             var result = _generalService.ShowConnections();
-            return Ok(result);
+            return string.Join(", ", result);
         }
 
-        [HttpGet("show-circuits")]
-        public IActionResult ShowCircuits()
+        public string ShowCircuits()
         {
             var result = _generalService.ShowCircuits();
-            return Ok(result);
+            return string.Join(", ", result);
         }
 
-        [HttpGet("show-pending-objects")]
-        public IActionResult ShowPendingObjects()
+        public string ShowPendingObjects()
         {
             var result = _generalService.ShowPendingObjects();
-            return Ok(result);
+            return result;
         }
 
-        [HttpGet("show-modules")]
-        public IActionResult ShowModules()
+        public string ShowModules()
         {
             var result = _generalService.ShowModules();
-            return Ok(result);
+            return result;
         }
 
-        [HttpGet("show-regions")]
-        public IActionResult ShowRegions()
+        public string ShowRegions()
         {
             var result = _generalService.ShowRegions();
-            return Ok(result);
+            return result;
         }
 
-        [HttpGet("show-ratings")]
-        public IActionResult ShowRatings()
+        public string ShowRatings()
         {
             var result = _generalService.ShowRatings();
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("backup")]
-        public IActionResult Backup()
+        public string Backup()
         {
             var result = _generalService.Backup();
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("create-region")]
-        public IActionResult CreateRegion(string regionName, string regionFile)
+        public string CreateRegion(string regionName, string regionFile)
         {
             var result = _generalService.CreateRegion(regionName, regionFile);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("restart")]
-        public IActionResult Restart()
+        public string Restart()
         {
             var result = _generalService.Restart();
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("command-script")]
-        public IActionResult CommandScript(string script)
+        public string CommandScript(string script)
         {
             var result = _generalService.CommandScript(script);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("remove-region")]
-        public IActionResult RemoveRegion(string regionName)
+        public string RemoveRegion(string regionName)
         {
             var result = _generalService.RemoveRegion(regionName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("delete-region")]
-        public IActionResult DeleteRegion(string regionName)
+        public string DeleteRegion(string regionName)
         {
             var result = _generalService.DeleteRegion(regionName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("create-estate")]
-        public IActionResult CreateEstate(string ownerUUID, string estateName)
+        public string CreateEstate(string ownerUUID, string estateName)
         {
             var result = _generalService.CreateEstate(ownerUUID, estateName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("set-estate-owner")]
-        public IActionResult SetEstateOwner(int estateId, string ownerUUID)
+        public string SetEstateOwner(int estateId, string ownerUUID)
         {
             var result = _generalService.SetEstateOwner(estateId, ownerUUID);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("set-estate-name")]
-        public IActionResult SetEstateName(int estateId, string newName)
+        public string SetEstateName(int estateId, string newName)
         {
             var result = _generalService.SetEstateName(estateId, newName);
-            return Ok(result);
+            return result;
         }
 
-        [HttpPost("estate-link-region")]
-        public IActionResult EstateLinkRegion(int estateId, int regionId)
+        public string EstateLinkRegion(int estateId, int regionId)
         {
             var result = _generalService.EstateLinkRegion(estateId, regionId);
-            return Ok(result);
+            return result;
         }
     }
 }

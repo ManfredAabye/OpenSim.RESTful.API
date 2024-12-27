@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using OpenMetaverse;
+
 using OpenSim.Framework;
 
 namespace OpenSim.RESTful.API.Services
@@ -13,10 +15,10 @@ namespace OpenSim.RESTful.API.Services
             return await Task.FromResult($"Region {regionName} wurde erfolgreich heruntergefahren.");
         }
 
-        public async Task<IEnumerable<Region>> GetAllSimulatorRegionsAsync()
+        public async Task<IEnumerable<RegionInfo>> GetAllSimulatorRegionsAsync()
         {
             // Implementiere die Logik zum Abrufen aller Simulatorregionen
-            return await Task.FromResult(new List<Region>());
+            return await Task.FromResult(new List<RegionInfo>());
         }
 
         public string SaveXml(string fileName)

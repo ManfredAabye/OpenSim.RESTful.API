@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using OpenMetaverse;
+
 using OpenSim.Framework;
 
 namespace OpenSim.RESTful.API.Services
 {
     public interface IRobustService
     {
-        Task<IEnumerable<Region>> GetAllRegionsAsync();
-        Task<Region> GetRegionDetailsAsync(string regionName);
+        Task<IEnumerable<RegionInfo>> GetAllRegionsAsync();
+        Task<RegionInfo> GetRegionDetailsAsync(string regionName);
         Task<string> CreateUserAsync(string firstName, string lastName, string password, string email);
         Task<string> ResetUserPasswordAsync(string userId, string newPassword);
         string ForceUpdate();

@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using OpenMetaverse;
+
 using OpenSim.Framework;
 
 namespace OpenSim.RESTful.API.Services
 {
     public class RobustService : IRobustService
     {
-        public async Task<IEnumerable<Region>> GetAllRegionsAsync()
+        public async Task<IEnumerable<RegionInfo>> GetAllRegionsAsync()
         {
             // Implementiere die Logik
-            return await Task.FromResult(new List<Region>());
+            return await Task.FromResult(new List<RegionInfo>());
         }
 
-        public async Task<Region> GetRegionDetailsAsync(string regionName)
+        public async Task<RegionInfo> GetRegionDetailsAsync(string regionName)
         {
             // Implementiere die Logik
-            return await Task.FromResult(new Region());
+            return await Task.FromResult(new RegionInfo());
         }
 
         public async Task<string> CreateUserAsync(string firstName, string lastName, string password, string email)

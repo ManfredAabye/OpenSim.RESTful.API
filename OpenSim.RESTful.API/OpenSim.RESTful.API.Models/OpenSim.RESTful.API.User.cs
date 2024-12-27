@@ -40,6 +40,6 @@ namespace OpenSim.RESTful.API.Models
         /// <summary>
         /// Timestamp when the account was created.
         /// </summary>
-        public DateTime CreatedAt { get; set; }
+        public System.DateTime CreatedAt { get; set; }
     }
 }
