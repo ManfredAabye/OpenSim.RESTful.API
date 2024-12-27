@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using OpenMetaverse;
+
 using OpenSim.Framework;
 using OpenSim.RESTful.API.Models;
+
 
 namespace OpenSim.RESTful.API.Services
 {
