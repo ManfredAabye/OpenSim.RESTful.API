@@ -1,222 +1,292 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using OpenMetaverse;
-
 using OpenSim.Framework;
+using OpenSim.Services.Interfaces;
+using OpenSim.RESTful.API.Helpers;
+using OpenSim.RESTful.API.Models;
+
 
 namespace OpenSim.RESTful.API.Services
 {
     public class RobustService : IRobustService
     {
+        private readonly IConsole _console;
+
+        public RobustService(IConsole console)
+        {
+            _console = console;
+        }
+
         public async Task<IEnumerable<RegionInfo>> GetAllRegionsAsync()
         {
-            // Implementiere die Logik
-            return await Task.FromResult(new List<RegionInfo>());
+            var result = _console.ExecuteCommand("show regions");
+            var regions = ResponseParser.ParseRegions(result);
+            return await Task.FromResult(regions);
         }
 
         public async Task<RegionInfo> GetRegionDetailsAsync(string regionName)
         {
-            // Implementiere die Logik
-            return await Task.FromResult(new RegionInfo());
+            var result = _console.ExecuteCommand($"show region {regionName}");
+            var region = ResponseParser.ParseRegion(result);
+            return await Task.FromResult(region);
         }
 
         public async Task<string> CreateUserAsync(string firstName, string lastName, string password, string email)
         {
-            // Implementiere die Logik
-            return await Task.FromResult("User created successfully");
+            var result = _console.ExecuteCommand($"create user {firstName} {lastName} {password} {email}");
+            return await Task.FromResult(result);
         }
 
         public async Task<string> ResetUserPasswordAsync(string userId, string newPassword)
         {
-            // Implementiere die Logik
-            return await Task.FromResult("Password reset successfully");
+            var result = _console.ExecuteCommand($"reset user password {userId} {newPassword}");
+            return await Task.FromResult(result);
         }
 
         public string ForceUpdate()
         {
-            // Implementiere die Logik
-            return "Force update triggered successfully.";
+            var result = _console.ExecuteCommand("force update");
+            return result;
         }
 
         public string ChangeRegion(string regionName)
         {
-            // Implementiere die Logik
-            return $"Region changed to {regionName}.";
+            var result = _console.ExecuteCommand($"change region {regionName}");
+            return result;
         }
 
         public string SaveXml(string fileName)
         {
-            // Implementiere die Logik
-            return $"Region saved as XML to {fileName}.";
+            var result = _console.ExecuteCommand($"save xml {fileName}");
+            return result;
         }
 
         public string SaveXml2(string fileName)
         {
-            // Implementiere die Logik
-            return $"Region saved as XML to {fileName}.";
+            var result = _console.ExecuteCommand($"save xml2 {fileName}");
+            return result;
         }
 
         public string LoadXml(string fileName, bool newUID = false, Vector3? position = null)
         {
-            // Implementiere die Logik
-            return $"Region loaded from {fileName}.";
+            var positionString = position.HasValue ? $"{position.Value.X} {position.Value.Y} {position.Value.Z}" : "";
+            var result = _console.ExecuteCommand($"load xml {fileName} {(newUID ? "newUID" : "")} {positionString}");
+            return result;
         }
 
         public string LoadXml2(string fileName)
         {
-            // Implementiere die Logik
-            return $"Region loaded from {fileName}.";
+            var result = _console.ExecuteCommand($"load xml2 {fileName}");
+            return result;
         }
 
         public string SavePrimsXml2(string primName, string fileName)
         {
-            // Implementiere die Logik
-            return $"Prims saved to {fileName}.";
+            var result = _console.ExecuteCommand($"save prims xml2 {primName} {fileName}");
+            return result;
         }
 
         public string LoadOar(string oarPath, bool merge = false, bool skipAssets = false, string defaultUser = null, string options = null)
         {
-            // Implementiere die Logik
-            return $"OAR loaded from {oarPath}.";
+            var optionsString = options != null ? $" {options}" : "";
+            var result = _console.ExecuteCommand($"load oar {oarPath} {(merge ? "merge" : "")} {(skipAssets ? "skipAssets" : "")} {defaultUser} {optionsString}");
+            return result;
         }
 
         public string SaveOar(string oarPath, string options = null)
         {
-            // Implementiere die Logik
-            return $"OAR saved to {oarPath}.";
+            var optionsString = options != null ? $" {options}" : "";
+            var result = _console.ExecuteCommand($"save oar {oarPath}{optionsString}");
+            return result;
         }
 
         public string EditScale(string primName, float x, float y, float z)
         {
-            // Implementiere die Logik
-            return $"Scale of {primName} edited.";
+            var result = _console.ExecuteCommand($"edit scale {primName} {x} {y} {z}");
+            return result;
         }
 
         public string RotateScene(float degrees, float centerX = 128, float centerY = 128)
         {
-            // Implementiere die Logik
-            return $"Scene rotated by {degrees} degrees.";
+            var result = _console.ExecuteCommand($"rotate scene {degrees} {centerX} {centerY}");
+            return result;
         }
 
         public string ScaleScene(float factor)
         {
-            // Implementiere die Logik
-            return $"Scene scaled by a factor of {factor}.";
+            var result = _console.ExecuteCommand($"scale scene {factor}");
+            return result;
         }
 
         public string TranslateScene(float xOffset, float yOffset, float zOffset)
         {
-            // Implementiere die Logik
-            return $"Scene translated by offsets.";
+            var result = _console.ExecuteCommand($"translate scene {xOffset} {yOffset} {zOffset}");
+            return result;
         }
 
         public string KickUser(string firstName, string lastName, bool force = false, string message = null)
         {
-            // Implementiere die Logik
-            return $"User {firstName} {lastName} kicked.";
+            var forceFlag = force ? "force" : "";
+            var result = _console.ExecuteCommand($"kick user {firstName} {lastName} {forceFlag} {message}");
+            return result;
         }
 
-        public IEnumerable<string> ShowUsers(bool full = false)
-        {
-            // Implementiere die Logik
-            return new List<string> { "User1", "User2" };
-        }
+        //public IEnumerable<string> ShowUsers(bool full = false)
+        //{
+        //    var fullFlag = full ? "full" : "";
+        //    var result = _console.ExecuteCommand($"show users {fullFlag}");
+        //    var users = ResponseParser.ParseUsers(result);
+        //    return users;
+        //}
 
         public string ShowConnections()
         {
-            // Implementiere die Logik
-            return "Connections shown.";
+            var result = _console.ExecuteCommand("show connections");
+            return result;
         }
 
         public string ShowCircuits()
         {
-            // Implementiere die Logik
-            return "Circuits shown.";
+            var result = _console.ExecuteCommand("show circuits");
+            return result;
         }
 
         public string ShowPendingObjects()
         {
-            // Implementiere die Logik
-            return "Pending objects shown.";
+            var result = _console.ExecuteCommand("show pending objects");
+            return result;
         }
 
         public string ShowModules()
         {
-            // Implementiere die Logik
-            return "Modules shown.";
+            var result = _console.ExecuteCommand("show modules");
+            return result;
         }
 
         public string ShowRegions()
         {
-            // Implementiere die Logik
-            return "Regions shown.";
+            var result = _console.ExecuteCommand("show regions");
+            return result;
         }
 
         public string ShowRatings()
         {
-            // Implementiere die Logik
-            return "Ratings shown.";
+            var result = _console.ExecuteCommand("show ratings");
+            return result;
         }
 
         public string Backup()
         {
-            // Implementiere die Logik
-            return "Backup completed.";
+            var result = _console.ExecuteCommand("backup");
+            return result;
         }
 
         public string CreateRegion(string regionName, string regionFile)
         {
-            // Implementiere die Logik
-            return $"Region {regionName} created with file {regionFile}.";
+            var result = _console.ExecuteCommand($"create region {regionName} {regionFile}");
+            return result;
         }
 
         public string Restart()
         {
-            // Implementiere die Logik
-            return "Server restarted.";
+            var result = _console.ExecuteCommand("restart");
+            return result;
         }
 
         public string CommandScript(string script)
         {
-            // Implementiere die Logik
-            return $"Script {script} executed.";
+            var result = _console.ExecuteCommand($"command script {script}");
+            return result;
         }
 
         public string RemoveRegion(string regionName)
         {
-            // Implementiere die Logik
-            return $"Region {regionName} removed.";
+            var result = _console.ExecuteCommand($"remove region {regionName}");
+            return result;
         }
 
         public string DeleteRegion(string regionName)
         {
-            // Implementiere die Logik
-            return $"Region {regionName} deleted.";
+            var result = _console.ExecuteCommand($"delete region {regionName}");
+            return result;
         }
 
         public string CreateEstate(string ownerUUID, string estateName)
         {
-            // Implementiere die Logik
-            return $"Estate {estateName} created for owner {ownerUUID}.";
+            var result = _console.ExecuteCommand($"create estate {ownerUUID} {estateName}");
+            return result;
         }
 
         public string SetEstateOwner(int estateId, string ownerUUID)
         {
-            // Implementiere die Logik
-            return $"Estate {estateId} owner set to {ownerUUID}.";
+            var result = _console.ExecuteCommand($"set estate owner {estateId} {ownerUUID}");
+            return result;
         }
 
         public string SetEstateName(int estateId, string newName)
         {
-            // Implementiere die Logik
-            return $"Estate {estateId} name changed to {newName}.";
+            var result = _console.ExecuteCommand($"set estate name {estateId} {newName}");
+            return result;
         }
 
         public string EstateLinkRegion(int estateId, int regionId)
         {
-            // Implementiere die Logik
-            return $"Region {regionId} linked to estate {estateId}.";
+            var result = _console.ExecuteCommand($"estate link region {estateId} {regionId}");
+            return result;
         }
+        /*
+        // Hilfsmethoden zum Parsen der Konsolenbefehle
+        private IEnumerable<RegionInfo> ParseRegions(string result)
+        {
+            // Implementiere die Logik zum Parsen der Regionen
+            // Beispiel:
+            var regions = new List<RegionInfo>();
+            var lines = result.Split('\n');
+            foreach (var line in lines)
+            {
+                var parts = line.Split(' ');
+                if (parts.Length > 1)
+                {
+                    var region = new RegionInfo
+                    {
+                        RegionName = parts[0],
+                        RegionID = new UUID(parts[1])
+                    };
+                    regions.Add(region);
+                }
+            }
+            return regions;
+        }
+
+        private RegionInfo ParseRegion(string result)
+        {
+            // Implementiere die Logik zum Parsen der Region
+            var parts = result.Split(' ');
+            if (parts.Length > 1)
+            {
+                return new RegionInfo
+                {
+                    RegionName = parts[0],
+                    RegionID = new UUID(parts[1])
+                };
+            }
+            return null;
+        }
+
+        private IEnumerable<string> ParseUsers(string result)
+        {
+            // Implementiere die Logik zum Parsen der Benutzer
+            var users = new List<string>();
+            var lines = result.Split('\n');
+            foreach (var line in lines)
+            {
+                if (!string.IsNullOrEmpty(line))
+                {
+                    users.Add(line.Trim());
+                }
+            }
+            return users;
+        }*/
     }
 }

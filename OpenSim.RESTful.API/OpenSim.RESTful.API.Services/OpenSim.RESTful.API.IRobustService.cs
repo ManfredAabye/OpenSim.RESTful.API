@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using OpenMetaverse;
 
 using OpenSim.Framework;
+using OpenSim.Services.Interfaces;
 
 namespace OpenSim.RESTful.API.Services
 {
@@ -27,7 +28,7 @@ namespace OpenSim.RESTful.API.Services
         string ScaleScene(float factor);
         string TranslateScene(float xOffset, float yOffset, float zOffset);
         string KickUser(string firstName, string lastName, bool force = false, string message = null);
-        IEnumerable<string> ShowUsers(bool full = false);
+        //IEnumerable<string> ShowUsers(bool full = false);
         string ShowConnections();
         string ShowCircuits();
         string ShowPendingObjects();

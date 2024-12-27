@@ -6,6 +6,7 @@ using OpenMetaverse;
 using OpenSim.Framework;
 using OpenSim.RESTful.API.Models;
 using OpenSim.RESTful.API.Services;
+using OpenSim.Services.Interfaces;
 
 namespace OpenSim.RESTful.API.Controllers
 {
@@ -126,11 +127,11 @@ namespace OpenSim.RESTful.API.Controllers
             return result;
         }
 
-        public IEnumerable<string> ShowUsers(bool full = false)
-        {
-            var result = _robustService.ShowUsers(full);
-            return result;
-        }
+        //public IEnumerable<string> ShowUsers(bool full = false)
+        //{
+        //    var result = _robustService.ShowUsers(full);
+        //    return result;
+        //}
 
         public string ShowConnections()
         {

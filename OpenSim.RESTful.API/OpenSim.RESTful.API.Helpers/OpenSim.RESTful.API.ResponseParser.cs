@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
+using OpenMetaverse;
+
+using OpenSim.Framework;
+using OpenSim.RESTful.API.Models;
+
 namespace OpenSim.RESTful.API.Helpers
 {
     public static class ResponseParser
     {
-        /// <summary>
-        /// Parses a raw string response from the OpenSim command line interface into JSON.
-        /// </summary>
         public static string ParseCommandResponse(string rawResponse)
         {
-            // Example: Process the raw response into a structured format
             var lines = rawResponse.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var responseDict = new Dictionary<string, string>();
 
@@ -27,9 +28,6 @@ namespace OpenSim.RESTful.API.Helpers
             return JsonSerializer.Serialize(responseDict);
         }
 
-        /// <summary>
-        /// Converts errors to a standardized JSON response.
-        /// </summary>
         public static string ParseError(string errorMessage)
         {
             var errorResponse = new
@@ -38,6 +36,63 @@ namespace OpenSim.RESTful.API.Helpers
                 error = errorMessage
             };
             return JsonSerializer.Serialize(errorResponse);
+        }
+
+        public static IEnumerable<RegionInfo> ParseRegions(string result)
+        {
+            var regions = new List<RegionInfo>();
+            var lines = result.Split('\n');
+            foreach (var line in lines)
+            {
+                var parts = line.Split(' ');
+                if (parts.Length > 1)
+                {
+                    var region = new RegionInfo
+                    {
+                        RegionName = parts[0],
+                        RegionID = new UUID(parts[1])
+                    };
+                    regions.Add(region);
+                }
+            }
+            return regions;
+        }
+
+        public static RegionInfo ParseRegion(string result)
+        {
+            var parts = result.Split(' ');
+            if (parts.Length > 1)
+            {
+                return new RegionInfo
+                {
+                    RegionName = parts[0],
+                    RegionID = new UUID(parts[1])
+                };
+            }
+            return null;
+        }
+
+        public static IEnumerable<User> ParseUsers(string result)
+        {
+            var users = new List<User>();
+            var lines = result.Split('\n');
+            foreach (var line in lines)
+            {
+                if (!string.IsNullOrEmpty(line))
+                {
+                    var parts = line.Split(' ');
+                    if (parts.Length >= 2)
+                    {
+                        var user = new User
+                        {
+                            FirstName = parts[0],
+                            LastName = parts[1]
+                        };
+                        users.Add(user);
+                    }
+                }
+            }
+            return users;
         }
     }
 }

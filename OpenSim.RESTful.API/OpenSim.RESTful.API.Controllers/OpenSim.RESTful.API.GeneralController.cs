@@ -6,6 +6,7 @@ using OpenMetaverse;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OpenSim.Services.Interfaces;
 
 namespace OpenSim.RESTful.API.Controllers
 {
@@ -114,11 +115,11 @@ namespace OpenSim.RESTful.API.Controllers
             return string.Join(", ", result);
         }
 
-        public string ShowUsers(bool full = false)
-        {
-            var result = _generalService.ShowUsers(full);
-            return string.Join(", ", result);
-        }
+        //public string ShowUsers(bool full = false)
+        //{
+        //    var result = _generalService.ShowUsers(full);
+        //    return string.Join(", ", result);
+        //}
 
         public string ShowConnections()
         {

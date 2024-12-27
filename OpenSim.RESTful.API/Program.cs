@@ -1,16 +1,22 @@
 using System;
+using OpenSim.Framework;
+using OpenSim.RESTful.API.Services;
+using OpenSim.RESTful.API.Controllers;
+using OpenSim.RESTful.API.Helpers;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        var simulatorService = new OpenSim.RESTful.API.Services.SimulatorService();
-        var generalService = new OpenSim.RESTful.API.Services.GeneralService();
-        var robustService = new OpenSim.RESTful.API.Services.RobustService();
+        IConsole console = new ConsoleImplementation(); // Verwende die konkrete Implementierung von IConsole
 
-        var simulatorController = new OpenSim.RESTful.API.Controllers.SimulatorController(simulatorService);
-        var generalController = new OpenSim.RESTful.API.Controllers.GeneralController(generalService);
-        var robustController = new OpenSim.RESTful.API.Controllers.RobustServiceController(robustService);
+        var simulatorService = new SimulatorService(console);
+        var generalService = new GeneralService(console);
+        var robustService = new RobustService(console);
+
+        var simulatorController = new SimulatorController(simulatorService);
+        var generalController = new GeneralController(generalService);
+        var robustController = new RobustServiceController(robustService);
 
         // Hier können Sie die Controller verwenden, um die gewünschten Funktionen auszuführen
         // Beispiel: simulatorController.ShutdownRegion("regionName");
