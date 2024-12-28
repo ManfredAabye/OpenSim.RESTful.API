@@ -1,6 +1,6 @@
 # OpenSim.RESTful.API
 
-Eine Idee und Machbarkeitsstudie zur JSON-Kommunikation zwischen PHP und OpenSim für Standalone, Joomla und WordPress.
+Eine Idee und Machbarkeitsstudie zur JSON-Kommunikation zwischen PHP und OpenSim für Standalone, Joomla, WordPress (W4OS, jopensim, diva-d2-distribution etc.).
 
 Build erfolgreich mit 0 Warnungen und 0 Fehlern: OpenSim.RESTful.API.dll und OpenSim.RESTful.API.pdb.
 
