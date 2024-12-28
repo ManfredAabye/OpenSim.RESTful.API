@@ -36,7 +36,6 @@ Diese Schnittstelle soll auf selbst erstellten Webseiten sowie auf beliebten Con
       ├── AssemblyInfo.cs
       ├── Config.ini.example
       ├── create_file_list.bat
-      ├── OpenSim.RESTful.API.csproj
       ├── PHP-Integration.md
       ├── prebuild-RESTful.xml
       ├── Program.cs
