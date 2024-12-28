@@ -5,17 +5,63 @@ using OpenSim.Framework;
 using OpenSim.Services.Interfaces;
 using OpenSim.RESTful.API.Helpers;
 using OpenSim.RESTful.API.Models;
+using Nini.Config;
+using log4net;
+using System.Reflection;
 
 
 namespace OpenSim.RESTful.API.Services
 {
     public class RobustService : IRobustService
     {
-        private readonly IConsole _console;
+        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public RobustService(IConsole console)
+        private readonly IConsole _console;
+        private readonly string _storageProvider;
+        private readonly string _connectionString;
+
+        public RobustService(IConsole console, ConfigReader configReader)
         {
             _console = console;
+
+            if (configReader.IsRobustServiceEnabled())
+            {
+                _storageProvider = configReader.GetRobustStorageProvider();
+                _connectionString = configReader.GetRobustConnectionString();
+            }
+        }
+
+        public void Initialize(IConfigSource config)
+        {
+            IConfig restConfig = config.Configs["RESTfulService"];
+            if (restConfig != null && restConfig.GetBoolean("enabled", false))
+            {
+                string serviceName = restConfig.GetString("RobustRESTfulServiceName", "defaultName");
+                string servicePassword = restConfig.GetString("RobustRESTfulServicePassword", "defaultPassword");
+
+                // Weitere Initialisierungen
+                m_log.InfoFormat("[RESTFUL SERVICE]: RESTfulAPIServices initialized with name: {0}", serviceName);
+            }
+            else
+            {
+                m_log.Error("[RESTFUL SERVICE]: Failed to load RESTfulAPIServices. 'enabled' not set or false.");
+            }
+        }
+
+        public void Start(IConfigSource config, IRegistryCore registry)
+        {
+            m_log.Info("[RESTFUL SERVICE]: RESTfulAPIServices started");
+        }
+
+        public void FinishedStartup()
+        {
+            m_log.Info("[RESTFUL SERVICE]: RESTfulAPIServices finished startup");
+        }
+
+        public async Task<string> SomeRobustCommandAsync()
+        {
+            var result = _console.ExecuteCommand("some command");
+            return await Task.FromResult(result);
         }
 
         public async Task<IEnumerable<RegionInfo>> GetAllRegionsAsync()

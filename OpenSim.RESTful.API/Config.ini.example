@@ -1,0 +1,44 @@
+; Die folgende Datei gibt ein Beispiel für die Konfigurationseinstellungen
+; der OpenSim RESTful API. Die Konfigurationsdateien sind:
+; - OpenSim.ini
+; - config-include/GridCommon.ini
+; - Robust.ini
+
+; ------------------------------
+; OpenSim.ini
+; ------------------------------
+[RESTfulService]
+enabled = true  ; Schaltet den Simulator Service ein oder aus
+; SimulatorRESTfulServiceName string min 8 Zeichen
+SimulatorRESTfulServiceName = "myName12"
+; SimulatorRESTfulServicePassword string min 32 Zeichen
+SimulatorRESTfulServicePassword = "14f85r25p14f5ghZ14f85r25p14f5ghZ"
+; ------------------------------
+; config-include/GridCommon.ini
+; ------------------------------
+; In dieser Datei werden die Einstellungen für den StorageProvider
+; und die Verbindungszeichenfolge konfiguriert, die generell für den
+; Simulator Service verwendet werden.
+
+[DatabaseService]
+StorageProvider = "OpenSim.Data.MySQL.dll"  ; Der Name des StorageProviders
+ConnectionString = "Data Source=localhost;Database=opensim;User ID=opensim;Password=***;Old Guids=true;SslMode=None;"  ; Die Verbindungszeichenfolge zur Datenbank
+
+; ------------------------------
+; Robust.ini
+; ------------------------------
+[ServiceList]
+RESTfulAPIServices = "${Const|PrivatePort}/OpenSim.RESTful.API.dll:RESTfulAPIServices"
+
+[RESTfulService]
+enabled = true  ; Schaltet den Robust Service ein oder aus
+; RobustRESTfulServiceName string min 8 Zeichen
+RobustRESTfulServiceName = "myName12"
+; RobustRESTfulServicePassword string min 32 Zeichen
+RobustRESTfulServicePassword = "14f85r25p14f5ghZ14f85r25p14f5ghZ"
+
+[DatabaseService]
+StorageProvider = "OpenSim.Data.MySQL.dll"
+ConnectionString = "Data Source=localhost;Database=opensim;User ID=opensim;Password=*****;Old Guids=true;SslMode=None;"
+
+

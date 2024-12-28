@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using OpenMetaverse;
-
 using OpenSim.Framework;
 using OpenSim.RESTful.API.Helpers;
 using OpenSim.RESTful.API.Models;
@@ -13,10 +11,18 @@ namespace OpenSim.RESTful.API.Services
     public class GeneralService : IGeneralService
     {
         private readonly IConsole _console;
+        private readonly string _storageProvider;
+        private readonly string _connectionString;
 
-        public GeneralService(IConsole console)
+        public GeneralService(IConsole console, ConfigReader configReader)
         {
             _console = console;
+
+            if (configReader.IsGeneralServiceEnabled())
+            {
+                _storageProvider = configReader.GetSimulatorStorageProvider();
+                _connectionString = configReader.GetSimulatorConnectionString();
+            }
         }
 
         public async Task<string> GetServerUptimeAsync()

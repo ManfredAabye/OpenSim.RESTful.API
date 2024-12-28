@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Nini.Config;
+
 using OpenMetaverse;
 
 using OpenSim.Framework;
@@ -10,6 +12,11 @@ namespace OpenSim.RESTful.API.Services
 {
     public interface IRobustService
     {
+        void Initialize(IConfigSource config);
+        void Start(IConfigSource config, IRegistryCore registry);
+        void FinishedStartup();
+        Task<string> SomeRobustCommandAsync();
+
         Task<IEnumerable<RegionInfo>> GetAllRegionsAsync();
         Task<RegionInfo> GetRegionDetailsAsync(string regionName);
         Task<string> CreateUserAsync(string firstName, string lastName, string password, string email);

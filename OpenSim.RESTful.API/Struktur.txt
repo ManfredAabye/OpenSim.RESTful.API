@@ -1,3 +1,4 @@
+Das Projekt hat folgende Struktur: 
 OpenSim.RESTful.API/
 ├── OpenSim.RESTful.API.Controllers/
 │   ├── OpenSim.RESTful.API.GeneralController.cs        
@@ -16,6 +17,7 @@ OpenSim.RESTful.API/
 │   ├── OpenSim.RESTful.API.SimulatorService.cs          # Simulator-Service Implementation
 ├── OpenSim.RESTful.API.Helpers/
 │   ├── OpenSim.RESTful.API.CommandParser.cs            
-│   ├── OpenSim.RESTful.API.ResponseParser.cs           
+│   ├── OpenSim.RESTful.API.ResponseParser.cs
+│   ├── OpenSim.RESTful.API.ConfigReader.cs
 ├── Program.cs                      # Hauptprogramm
-└── appsettings.json                # Konfiguration (z. B. Robust-Pfad, Auth)
+└── appsettings.ini.example                # Konfigurationmöglichkeiten gelistet als Information

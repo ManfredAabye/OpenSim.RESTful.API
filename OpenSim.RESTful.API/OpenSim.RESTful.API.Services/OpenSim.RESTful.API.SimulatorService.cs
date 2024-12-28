@@ -13,10 +13,18 @@ namespace OpenSim.RESTful.API.Services
     public class SimulatorService : ISimulatorService
     {
         private readonly IConsole _console;
+        private readonly string _storageProvider;
+        private readonly string _connectionString;
 
-        public SimulatorService(IConsole console)
+        public SimulatorService(IConsole console, ConfigReader configReader)
         {
             _console = console;
+
+            if (configReader.IsSimulatorServiceEnabled())
+            {
+                _storageProvider = configReader.GetSimulatorStorageProvider();
+                _connectionString = configReader.GetSimulatorConnectionString();
+            }
         }
 
         public async Task<string> ShutdownRegionAsync(string regionName)
