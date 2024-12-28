@@ -1,14 +1,17 @@
 # OpenSim.RESTful.API
 
-Eine Idee und Machbarkeitsstudie JSON Kommunikation PHP <-> OpenSim für Standalone, Jomla und Wordpress etc.
+Eine Idee und Machbarkeitsstudie zur JSON-Kommunikation zwischen PHP und OpenSim für Standalone, Joomla und WordPress.
 
-Build succeeded 0 Warning(s) 0 Error(s) OpenSim.RESTful.API.dll OpenSim.RESTful.API.pdb // 99 todo: Implementiere die Logik
+Build erfolgreich mit 0 Warnungen und 0 Fehlern: OpenSim.RESTful.API.dll und OpenSim.RESTful.API.pdb.
+
+`nini` implementiert Konfigurationen über `OpenSim.ini`, `GridCommon.ini` und `Robust.ini`.
 
 ## How-To: Erstellen einer allgemeinen Webschnittstelle für OpenSim und Robust
 
 ### Überblick
 
-Dieses Projekt zielt darauf ab, eine allgemeine Webschnittstelle zu erstellen, die die Verwaltung und Interaktion mit OpenSim und Robust ermöglicht. Diese Schnittstelle soll auf selbsterstellten Webseiten sowie auf beliebten Content-Management-Systemen wie Joomla und WordPress funktionieren.
+Dieses Projekt zielt darauf ab, eine allgemeine Webschnittstelle zu erstellen, die die Verwaltung und Interaktion mit OpenSim und Robust ermöglicht. 
+Diese Schnittstelle soll auf selbst erstellten Webseiten sowie auf beliebten Content-Management-Systemen wie Joomla und WordPress funktionieren.
 
 ### Ziele
 
@@ -29,27 +32,49 @@ Dieses Projekt zielt darauf ab, eine allgemeine Webschnittstelle zu erstellen, d
   - Entwickle die API-Controller und -Services, die die benötigten Funktionen wie Benutzerregistrierung, Regionenerstellung und Verwaltung von Grundstücken unterstützen.
   - Beispielstruktur:
     ```
-    OpenSim.RESTful.API/
-    ├── OpenSim.RESTful.API.Controllers/
-    │   ├── OpenSim.RESTful.API.GeneralController.cs        
-    │   ├── OpenSim.RESTful.API.RobustServiceController.cs  
-    │   ├── OpenSim.RESTful.API.SimulatorController.cs      
-    ├── OpenSim.RESTful.API.Models/
-    │   ├── OpenSim.RESTful.API.User.cs                     
-    │   ├── OpenSim.RESTful.API.Region.cs                   
-    │   ├── OpenSim.RESTful.API.Asset.cs                    
-    ├── OpenSim.RESTful.API.Services/
-    │   ├── OpenSim.RESTful.API.IGeneralService.cs           # Allgemeiner Serverdienst Interface
-    │   ├── OpenSim.RESTful.API.GeneralService.cs            # Allgemeiner Serverdienst Implementation
-    │   ├── OpenSim.RESTful.API.IRobustService.cs            # ROBUST-Service-Integration Interface
-    │   ├── OpenSim.RESTful.API.RobustService.cs             # ROBUST-Service-Integration Implementation
-    │   ├── OpenSim.RESTful.API.ISimulatorService.cs         # Simulator-Service Interface
-    │   ├── OpenSim.RESTful.API.SimulatorService.cs          # Simulator-Service Implementation
-    ├── OpenSim.RESTful.API.Helpers/
-    │   ├── OpenSim.RESTful.API.CommandParser.cs            
-    │   ├── OpenSim.RESTful.API.ResponseParser.cs           
-    ├── Program.cs                      # Hauptprogramm
-    └── appsettings.json                # Konfiguration (z. B. Robust-Pfad, Auth)              
+   OpenSim.RESTful.API/
+   ├── AssemblyInfo.cs
+   ├── Config.ini.example
+   ├── create_file_list.bat
+   ├── OpenSim.RESTful.API.csproj
+   ├── PHP-Integration.md
+   ├── prebuild-RESTful.xml
+   ├── Program.cs
+   ├── README.md
+   ├── Struktur.txt
+   OpenSim.RESTful.API.Controllers/
+   │   ├── OpenSim.RESTful.API.GeneralController.cs
+   │   ├── OpenSim.RESTful.API.RobustServiceController.cs
+   │   ├── OpenSim.RESTful.API.SimulatorController.cs
+   OpenSim.RESTful.API.Helpers/
+   │   ├── OpenSim.RESTful.API.CommandParser.cs
+   │   ├── OpenSim.RESTful.API.ConfigReader.cs
+   │   ├── OpenSim.RESTful.API.ConsoleExtensions.cs
+   │   ├── OpenSim.RESTful.API.ConsoleImplementation.cs
+   │   ├── OpenSim.RESTful.API.ResponseParser.cs
+   OpenSim.RESTful.API.Models/
+   │   ├── OpenSim.RESTful.API.Asset.cs
+   │   ├── OpenSim.RESTful.API.Region.cs
+   │   ├── OpenSim.RESTful.API.User.cs
+   OpenSim.RESTful.API.PHP/
+   │   ├── Fehlerbehandlung_und_Logging.php
+   │   ├── Joomla.md
+   │   ├── Kommunikation_von_der_API_zu_PHP.php
+   │   ├── Kommunikation_von_PHP_zur_API.php
+   │   ├── OpenSimAPIClient.php
+   │   ├── Regionen_anzeigen.php
+   │   ├── Sicherheit.md
+   │   ├── Sicherheit.php
+   │   ├── Webhook-Request.php
+   │   ├── Webhook.php
+   │   ├── WordPress.md
+   OpenSim.RESTful.API.Services/
+   │   ├── OpenSim.RESTful.API.GeneralService.cs
+   │   ├── OpenSim.RESTful.API.IGeneralService.cs
+   │   ├── OpenSim.RESTful.API.IRobustService.cs
+   │   ├── OpenSim.RESTful.API.ISimulatorService.cs
+   │   ├── OpenSim.RESTful.API.RobustService.cs
+   │   ├── OpenSim.RESTful.API.SimulatorService.cs         
     ```
 
 #### 2. Integration in Joomla
