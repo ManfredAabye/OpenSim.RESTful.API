@@ -1,23 +1,45 @@
 Das Projekt hat folgende Struktur: 
 OpenSim.RESTful.API/
-├── OpenSim.RESTful.API.Controllers/
-│   ├── OpenSim.RESTful.API.GeneralController.cs        
-│   ├── OpenSim.RESTful.API.RobustServiceController.cs  
-│   ├── OpenSim.RESTful.API.SimulatorController.cs      
-├── OpenSim.RESTful.API.Models/
-│   ├── OpenSim.RESTful.API.User.cs                     
-│   ├── OpenSim.RESTful.API.Region.cs                   
-│   ├── OpenSim.RESTful.API.Asset.cs                    
-├── OpenSim.RESTful.API.Services/
-│   ├── OpenSim.RESTful.API.IGeneralService.cs           # Allgemeiner Serverdienst Interface
-│   ├── OpenSim.RESTful.API.GeneralService.cs            # Allgemeiner Serverdienst Implementation
-│   ├── OpenSim.RESTful.API.IRobustService.cs            # ROBUST-Service-Integration Interface
-│   ├── OpenSim.RESTful.API.RobustService.cs             # ROBUST-Service-Integration Implementation
-│   ├── OpenSim.RESTful.API.ISimulatorService.cs         # Simulator-Service Interface
-│   ├── OpenSim.RESTful.API.SimulatorService.cs          # Simulator-Service Implementation
-├── OpenSim.RESTful.API.Helpers/
-│   ├── OpenSim.RESTful.API.CommandParser.cs            
-│   ├── OpenSim.RESTful.API.ResponseParser.cs
-│   ├── OpenSim.RESTful.API.ConfigReader.cs
-├── Program.cs                      # Hauptprogramm
-└── appsettings.ini.example                # Konfigurationmöglichkeiten gelistet als Information
+│   │   ├── AssemblyInfo.cs
+│   │   ├── Config.ini.example
+│   │   ├── create_file_list.bat
+│   │   ├── OpenSim.RESTful.API.csproj
+│   │   ├── PHP-Integration.md
+│   │   ├── prebuild-RESTful.xml
+│   │   ├── Program.cs
+│   │   ├── README.md
+│   │   ├── Struktur.txt
+OpenSim.RESTful.API.Controllers/
+│   │   ├── OpenSim.RESTful.API.GeneralController.cs
+│   │   ├── OpenSim.RESTful.API.RobustServiceController.cs
+│   │   ├── OpenSim.RESTful.API.SimulatorController.cs
+OpenSim.RESTful.API.Helpers/
+│   │   ├── OpenSim.RESTful.API.CommandParser.cs
+│   │   ├── OpenSim.RESTful.API.ConfigReader.cs
+│   │   ├── OpenSim.RESTful.API.ConsoleExtensions.cs
+│   │   ├── OpenSim.RESTful.API.ConsoleImplementation.cs
+│   │   ├── OpenSim.RESTful.API.ResponseParser.cs
+OpenSim.RESTful.API.Models/
+│   │   ├── OpenSim.RESTful.API.Asset.cs
+│   │   ├── OpenSim.RESTful.API.Region.cs
+│   │   ├── OpenSim.RESTful.API.User.cs
+OpenSim.RESTful.API.PHP/
+│   │   ├── Fehlerbehandlung_und_Logging.php
+│   │   ├── Joomla.md
+│   │   ├── Kommunikation_von_der_API_zu_PHP.php
+│   │   ├── Kommunikation_von_PHP_zur_API.php
+│   │   ├── OpenSimAPIClient.php
+│   │   ├── Regionen_anzeigen.php
+│   │   ├── Sicherheit.md
+│   │   ├── Sicherheit.php
+│   │   ├── Webhook-Request.php
+│   │   ├── Webhook.php
+│   │   ├── WordPress.md
+OpenSim.RESTful.API.Services/
+│   │   ├── OpenSim.RESTful.API.GeneralService.cs
+│   │   ├── OpenSim.RESTful.API.IGeneralService.cs
+│   │   ├── OpenSim.RESTful.API.IRobustService.cs
+│   │   ├── OpenSim.RESTful.API.ISimulatorService.cs
+│   │   ├── OpenSim.RESTful.API.RobustService.cs
+│   │   ├── OpenSim.RESTful.API.SimulatorService.cs
+
